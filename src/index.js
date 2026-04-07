@@ -14,7 +14,14 @@ app.use(helmet());
 // CORS — only allow your frontend
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
+    origin: (origin, callback) => {
+      const allowed = (process.env.FRONTEND_URL || "http://localhost:5173").replace(/\/$/, "");
+      if (!origin || origin === allowed) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST"],
   })
 );
