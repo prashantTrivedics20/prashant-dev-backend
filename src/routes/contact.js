@@ -7,7 +7,7 @@ const router = Router();
 const validate = [
   body("name").trim().notEmpty().withMessage("Name is required").isLength({ max: 100 }),
   body("email").isEmail().withMessage("Valid email required").normalizeEmail(),
-  body("message").trim().notEmpty().withMessage("Message is required").isLength({ min: 10, max: 2000 }),
+  body("message").trim().notEmpty().withMessage("Message is required").isLength({ min: 5, max: 2000 }),
 ];
 
 router.post("/", validate, async (req, res) => {
